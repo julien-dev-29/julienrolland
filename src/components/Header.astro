@@ -1,0 +1,35 @@
+---
+import Heading from "./atoms/Heading.astro";
+import NavLink from "./molecules/NavLink.astro";
+
+const navLinks = [
+  {
+    href: "/",
+    label: "Home",
+  },
+  {
+    href: "/about",
+    label: "About",
+  },
+  {
+    href: "/projects",
+    label: "Projects",
+  },
+];
+---
+
+<header class="flex justify-between items-center py-2 content">
+  <a href="" class="bg-gray-600 rounded-full p-4">
+    <Heading level={4} content="JR" />
+  </a>
+  <nav>
+    <ul class="flex gap-8">
+      {
+        navLinks.map((navLink) => (
+          <NavLink href={navLink.href} label={navLink.label} />
+        ))
+      }
+    </ul>
+  </nav>
+  <div></div>
+</header>

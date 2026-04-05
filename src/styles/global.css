@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  @apply dark:bg-gray-950 text-gray-50;
+}
+
+.content {
+  @apply w-full max-w-7xl m-auto;
+}
