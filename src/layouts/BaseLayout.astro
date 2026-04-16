@@ -1,11 +1,12 @@
 ---
-import Header from "../components/Header.astro";
+import Footer from "../components/organisms/Footer.astro";
+import Header from "../components/organisms/Header.astro";
 import "../styles/global.css";
 const siteName = "Julien Rolland";
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,8 +14,9 @@ const siteName = "Julien Rolland";
       {siteName}
     </title>
   </head>
-  <body>
+  <body class="flex flex-col min-h-dvh justify-between">
     <Header />
     <slot />
+    <Footer />
   </body>
 </html>

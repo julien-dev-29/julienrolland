@@ -1,0 +1,42 @@
+---
+import NavLink from "../molecules/NavLink.astro";
+const pathName = new URL(Astro.request.url).pathname;
+const navLinks = [
+  {
+    href: "/",
+    label: "Home",
+  },
+  {
+    href: "/about",
+    label: "About",
+  },
+  {
+    href: "/projects",
+    label: "Projects",
+  },
+  {
+    href: "/articles",
+    label: "Blog",
+  },
+];
+---
+
+<header class="flex justify-between items-center py-4 content">
+  <a href="/">
+    <h1 class="text-2xl bg-teal-600 rounded-full px-2 py-1">JR</h1>
+  </a>
+  <nav>
+    <ul class="flex gap-8">
+      {
+        navLinks.map((navLink) => (
+          <NavLink
+            href={navLink.href}
+            label={navLink.label}
+            active={pathName == navLink.href}
+          />
+        ))
+      }
+    </ul>
+  </nav>
+  <div></div>
+</header>

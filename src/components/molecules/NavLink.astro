@@ -2,11 +2,15 @@
 type Props = {
   href: string;
   label: string;
+  active: boolean;
 };
 
-const { href, label } = Astro.props;
+const { href, label, active } = Astro.props;
 ---
 
 <li>
-  <a href={href}>{label}</a>
+  <a
+    href={href}
+    class={`text-sm hover:text-teal-500 transition duration-300 ease-in-out ${active ? "text-teal-500 underline" : ""}`}>{label}</a
+  >
 </li>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getEntry, render } from "astro:content";
+
+const { slug } = Astro.params;
+
+if (!slug) throw new Error("Slug is required");
+
+const entry = await getEntry("blog", slug);
+
+if (!entry) return Astro.redirect("/404");
+
+const { Content } = await render(entry);
+---
+
+<BaseLayout>
+  <div class="container max-w-5/12 m-auto flex-1 flex flex-col">
+    <h2 class="text-5xl font-bold text-teal-500">
+      {entry.data.title}
+    </h2>
+    <p class="mt-2 text-sm text-gray-400">
+      By {entry.data.author} on {entry.data.pubDate.toLocaleDateString()}
+    </p>
+    <div class="flex flex-wrap gap-2 mt-2">
+      {
+        entry.data.tags.map((tag: string, index: number) => (
+          <span
+            class={`px-2 py-1 ${index % 2 == 0 ? "bg-purple-500" : "bg-blue-500"} text-white rounded-full text-xs hover:opacity-90`}
+          >
+            <a href={"/articles/tag/" + tag}>{tag}</a>
+          </span>
+        ))
+      }
+    </div>
+    <img
+      class="mt-4"
+      src=`/images/${entry.data.image}`
+      width="850"
+      alt="image article"
+    />
+    <div class="prose">
+      <Content />
+    </div>
+  </div>
+</BaseLayout>

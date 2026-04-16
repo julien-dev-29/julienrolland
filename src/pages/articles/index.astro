@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Heading from "../../components/atoms/Heading.astro";
+import ArticleCard from "../../components/organisms/ArticleCard.astro";
+
+const allBlogArticles: CollectionEntry<"blog">[] = await getCollection("blog");
+---
+
+<BaseLayout>
+  <div class="container max-w-9/12 m-auto">
+    <Heading level={4} content="All the articles" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+      {allBlogArticles.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </div>
+</BaseLayout>
