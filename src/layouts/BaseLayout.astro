@@ -6,7 +6,7 @@ const siteName = "Julien Rolland";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,9 @@ const siteName = "Julien Rolland";
   </head>
   <body class="flex flex-col min-h-dvh justify-between">
     <Header />
-    <slot />
+    <main class="pt-20">
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>

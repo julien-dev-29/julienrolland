@@ -4,15 +4,18 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Heading from "../../components/atoms/Heading.astro";
 import ArticleCard from "../../components/organisms/ArticleCard.astro";
+import Pagination from "../../components/organisms/Pagination.astro";
 
 const allBlogArticles: CollectionEntry<"blog">[] = await getCollection("blog");
+const articlesLength = allBlogArticles.length;
 ---
 
 <BaseLayout>
-  <div class="container max-w-9/12 m-auto">
+  <div class="container sm:max-w-9/12 m-auto p-2">
     <Heading level={4} content="All the articles" />
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"> 
       {allBlogArticles.map((article) => <ArticleCard article={article} />)}
     </div>
+    <Pagination totalPages={articlesLength} currentPage={1} baseUrl="/" />
   </div>
 </BaseLayout>

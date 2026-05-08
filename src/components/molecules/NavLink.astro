@@ -11,6 +11,6 @@ const { href, label, active } = Astro.props;
 <li>
   <a
     href={href}
-    class={`text-sm hover:text-teal-500 transition duration-300 ease-in-out ${active ? "text-teal-500 underline" : ""}`}>{label}</a
+    class={`text-sm transition-colors duration-200 ${active ? "text-teal-400" : "text-teal-300"}`}>{label}</a
   >
 </li>

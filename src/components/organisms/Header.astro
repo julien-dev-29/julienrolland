@@ -2,41 +2,164 @@
 import NavLink from "../molecules/NavLink.astro";
 const pathName = new URL(Astro.request.url).pathname;
 const navLinks = [
-  {
-    href: "/",
-    label: "Home",
-  },
-  {
-    href: "/about",
-    label: "About",
-  },
-  {
-    href: "/projects",
-    label: "Projects",
-  },
-  {
-    href: "/articles",
-    label: "Blog",
-  },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/articles", label: "Blog" },
 ];
 ---
 
-<header class="flex justify-between items-center py-4 content">
-  <a href="/">
-    <h1 class="text-2xl bg-teal-600 rounded-full px-2 py-1">JR</h1>
-  </a>
-  <nav>
-    <ul class="flex gap-8">
-      {
-        navLinks.map((navLink) => (
-          <NavLink
-            href={navLink.href}
-            label={navLink.label}
-            active={pathName == navLink.href}
-          />
-        ))
-      }
-    </ul>
-  </nav>
-  <div></div>
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-teal-950/80 backdrop-blur-md border-b border-teal-900/50"
+>
+  <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="flex justify-between items-center">
+      <a href="/" class="group">
+        <span
+          class="text-2xl bg-linear-to-r from-teal-400 to-cyan-400 text-teal-950 font-bold rounded-full px-3 py-1 inline-block group-hover:scale-110 transition-transform duration-300"
+        >
+          JR
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8">
+        <ul class="flex gap-8">
+          {
+            navLinks.map((link) => (
+              <NavLink
+                href={link.href}
+                label={link.label}
+                active={
+                  pathName === link.href || pathName.startsWith(link.href + "/")
+                }
+              />
+            ))
+          }
+        </ul>
+      </nav>
+
+      <button
+        id="menu-toggle"
+        class="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 cursor-pointer p-2"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span
+          class="w-6 h-0.5 bg-teal-300 rounded-full transition-all duration-300 origin-center"
+        ></span>
+        <span
+          class="w-6 h-0.5 bg-teal-300 rounded-full transition-all duration-300"
+        ></span>
+        <span
+          class="w-6 h-0.5 bg-teal-300 rounded-full transition-all duration-300 origin-center"
+        ></span>
+      </button>
+    </div>
+  </div>
 </header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 bg-teal-950/95 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+>
+  <div
+    class="flex flex-col items-center justify-center h-full gap-8 translate-x-full transition-transform duration-300 ease-out"
+    id="mobile-nav"
+  >
+    <button
+      id="menu-close"
+      class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center"
+      aria-label="Close menu"
+    >
+      <span
+        class="w-6 h-0.5 bg-teal-300 rounded-full rotate-45 translate-y-0.5 transition-all duration-300"
+      ></span>
+      <span
+        class="w-6 h-0.5 bg-teal-300 rounded-full -rotate-45 -translate-y-0.5 transition-all duration-300"
+      ></span>
+    </button>
+    {
+      navLinks.map((link, index) => (
+        <a
+          href={link.href}
+          class="text-3xl font-semibold text-teal-300 hover:text-teal-400 transition-all duration-300 opacity-0 translate-y-4"
+          style={`transition-delay: ${index * 50}ms`}
+          data-mobile-link
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const menuClose = document.getElementById("menu-close");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileNav = document.getElementById("mobile-nav");
+  const mobileLinks = document.querySelectorAll("[data-mobile-link]");
+  const hamburgerLines = menuToggle?.querySelectorAll("span");
+
+  function openMenu() {
+    mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+    mobileMenu?.classList.add("opacity-100", "pointer-events-auto");
+    mobileNav?.classList.remove("translate-x-full");
+    mobileNav?.classList.add("translate-x-0");
+
+    hamburgerLines?.[0].classList.add("rotate-45", "translate-y-1.5");
+    hamburgerLines?.[1].classList.add("opacity-0");
+    hamburgerLines?.[2].classList.add("-rotate-45", "-translate-y-1.5");
+
+    mobileLinks.forEach((link, i) => {
+      setTimeout(
+        () => {
+          link.classList.remove("opacity-0", "translate-y-4");
+          link.classList.add("opacity-100", "translate-y-0");
+        },
+        100 + i * 50,
+      );
+    });
+  }
+
+  function closeMenu() {
+    mobileMenu?.classList.remove("opacity-100", "pointer-events-auto");
+    mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+    mobileNav?.classList.remove("translate-x-0");
+    mobileNav?.classList.add("translate-x-full");
+
+    hamburgerLines?.[0].classList.remove("rotate-45", "translate-y-1.5");
+    hamburgerLines?.[1].classList.remove("opacity-0");
+    hamburgerLines?.[2].classList.remove("-rotate-45", "-translate-y-1.5");
+  }
+
+  menuToggle?.addEventListener("click", openMenu);
+  menuClose?.addEventListener("click", closeMenu);
+  mobileLinks.forEach((link) => link.addEventListener("click", closeMenu));
+</script>
+
+<style>
+  nav :global(li a) {
+    position: relative;
+  }
+
+  nav :global(li a::after) {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #14b8a6, #06b6d4);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  nav :global(li a:hover::after) {
+    width: 100%;
+  }
+
+  nav :global(li a:hover) {
+    color: #2dd4bf;
+  }
+</style>

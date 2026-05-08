@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 body {
   @apply dark:bg-gray-950 text-gray-50;
@@ -14,4 +15,8 @@ body {
 
 .tag {
   @apply bg-gray-800 text-gray-200;
+}
+
+.markdown {
+  @apply prose dark:prose-invert;
 }
