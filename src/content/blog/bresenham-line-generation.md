@@ -98,3 +98,9 @@ int main() {
     return 0;
 }
 ```
+
+## Conclusion
+
+L'algorithme de Bresenham reste un pilier fondamental de l'infographie. Son efficacité et sa simplicité en font un choix privilégié pour le tracé de lignes dans de nombreuses applications, des jeux vidéo aux systèmes embarqués.
+
+Bien que des algorithmes plus récents comme l'algorithme de Wu existent pour l'anti-aliasing, Bresenham demeure irremplaçable pour sa rapidité et sa précision sur grille entière.

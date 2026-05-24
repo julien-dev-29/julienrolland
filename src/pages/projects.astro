@@ -1,0 +1,67 @@
+---
+import Heading from "../components/atoms/Heading.astro";
+import Project from "../components/organisms/Project.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const projects = [
+  {
+    title: "Portfolio Website",
+    description: "A modern portfolio built with Astro and Tailwind CSS, featuring a clean design and smooth animations.",
+    tags: ["Astro", "Tailwind", "TypeScript"],
+    image: "/images/portfolio.png",
+    githubUrl: "https://github.com/julienrolland/portfolio",
+    liveUrl: "https://julienrolland.dev",
+  },
+  {
+    title: "E-commerce Platform",
+    description: "A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include cart management, user authentication, and payment integration.",
+    tags: ["React", "Node.js", "MongoDB", "Stripe"],
+    image: "/images/ecommerce.png",
+    githubUrl: "https://github.com/julienrolland/ecommerce",
+  },
+  {
+    title: "Task Manager App",
+    description: "A productivity application for managing tasks and projects with real-time collaboration features.",
+    tags: ["Vue.js", "Firebase", "Vuex"],
+    githubUrl: "https://github.com/julienrolland/task-manager",
+    liveUrl: "https://taskmanager.app",
+  },
+  {
+    title: "Weather Dashboard",
+    description: "A beautiful weather application that displays forecasts with animated backgrounds and location-based data.",
+    tags: ["React", "OpenWeather API", "Framer Motion"],
+    image: "/images/weather.png",
+    githubUrl: "https://github.com/julienrolland/weather-dashboard",
+  },
+  {
+    title: "Chat Application",
+    description: "Real-time chat app with WebSocket support, private messaging, and group conversations.",
+    tags: ["Socket.io", "Express", "React", "Redis"],
+    githubUrl: "https://github.com/julienrolland/chat-app",
+  },
+  {
+    title: "API Gateway",
+    description: "A scalable API gateway with rate limiting, authentication, and request routing built with Go.",
+    tags: ["Go", "Docker", "Kubernetes"],
+    githubUrl: "https://github.com/julienrolland/api-gateway",
+  },
+];
+---
+
+<BaseLayout title="Projects | Julien Rolland">
+  <div class="content">
+    <section class="py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <Heading level={1} content="Projects" />
+        <p class="text-teal-300/70 text-lg md:text-xl max-w-2xl mt-4 mb-12">
+          A collection of projects I've worked on, from web applications to tools and experiments.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+          {projects.map((project) => (
+            <Project {...project} />
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
